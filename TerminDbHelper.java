@@ -233,11 +233,14 @@ public class TerminDbHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Termin termin = new Termin();
-                // Nehmen Sie an, dass Termin eine Klasse mit einem Konstruktor ist, der alle nötigen Werte setzt
-                // oder setzen Sie die Werte einzeln mit Setter-Methoden
+                // ID setzen
                 termin.setId(cursor.getLong(cursor.getColumnIndex(TerminContract.TerminEntry._ID)));
+                // Alle erforderlichen Felder aus der Datenbank lesen
                 termin.setName(cursor.getString(cursor.getColumnIndex(TerminContract.TerminEntry.COLUMN_NAME_NAME)));
-                // Setzen Sie alle weiteren erforderlichen Felder...
+                termin.ahvNummer = cursor.getString(cursor.getColumnIndex(TerminContract.TerminEntry.COLUMN_NAME_AHV_NUMMER));
+                termin.terminTyp = cursor.getString(cursor.getColumnIndex(TerminContract.TerminEntry.COLUMN_NAME_TERMIN_TYP));
+                termin.details = cursor.getString(cursor.getColumnIndex(TerminContract.TerminEntry.COLUMN_NAME_DETAILS));
+                termin.terminDatum = cursor.getString(cursor.getColumnIndex(TerminContract.TerminEntry.COLUMN_NAME_DATUM));
 
                 unsyncedTermine.add(termin);
             } while (cursor.moveToNext());
